@@ -13,5 +13,4 @@ bool pending = _listenSocket.AcceptAsync(args);
 
 ### Session
 - ReceiveAsync
-
 - SendAsync
