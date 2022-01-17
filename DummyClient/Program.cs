@@ -56,6 +56,7 @@ namespace DummyClient
 
             connector.Connect(endPoint, () => { return new GameSession(); });
 
+            while(true){ }
         }
     }
 }

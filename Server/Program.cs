@@ -7,13 +7,30 @@ using ServerCore;
 
 namespace Server
 {
+    class Knight 
+    {
+        public int hp; // 4bytes
+        public int attack; //4bytes
+    }
+
     class GameSession : Session
     {
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected: {endPoint}");
-            //보낸다
-            byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to MMORPG Server!");
+
+            //문자열 보내기
+            //byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to MMORPG Server!");
+
+            Knight knight = new Knight() { hp = 100, attack = 10 };
+
+            ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
+            byte[] buffer = BitConverter.GetBytes(knight.hp);
+            byte[] buffer2 = BitConverter.GetBytes(knight.attack);
+            Array.Copy(buffer, 0, openSegment.Array, openSegment.Offset, buffer.Length);
+            Array.Copy(buffer2, 0, openSegment.Array, openSegment.Offset + buffer.Length, buffer2.Length);
+            ArraySegment<byte> sendBuff = SendBufferHelper.Close(buffer.Length + buffer2.Length);
+
             Send(sendBuff);
 
             Thread.Sleep(1000);
