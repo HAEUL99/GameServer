@@ -10,3 +10,8 @@
 - 의문점 
 아래코드를 실행하면 args가 클라이언트에서 보낸 소켓에 대한 정보를 담게 되는건가?
 bool pending = _listenSocket.AcceptAsync(args);
+
+### Session
+- ReceiveAsync
+
+- SendAsync
