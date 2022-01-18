@@ -5,11 +5,9 @@
 - Program.cs
   - void Main(string[] args): EndPoint 설정후 Connector.Connect 호출
 - ServerSession.cs
-  - 
 ## Server
 - Program.cs
 - ClientSession.cs
-  - 
 ## ServerCore
 - Conncetor.cs
   - void Connect(IPEndPoint endPoint, Func<Session> sessionFactory): socket 생성후, completed 이벤트 등록
