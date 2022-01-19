@@ -1,16 +1,36 @@
 # GameServer
-게임서버공부
+[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part4: 게임 서버
 
-### 소켓 프로그래밍 입문
-- 간단한 클라이언트, 서버 스크립트를 작성했다.
-- 블록킹함수인 Connect, Receive, Send를 사용하였다는 점을 개선하여야한다.
+## DummyClient
+- Program.cs
+  - void Main(string[] args): EndPoint 설정후 Connector.Connect 호출
+- ServerSession.cs
+## Server
+- Program.cs
+- ClientSession.cs
+## ServerCore
+- Conncetor.cs
+  - void Connect(IPEndPoint endPoint, Func<Session> sessionFactory): socket 생성후, completed 이벤트 등록
+  - void RegisterConnect(SocketAsyncEventArgs args): socket 연결 등록 (socket.ConncetAsync(args)) 
+  - void OnConnectCompleted(object sender, SocketAsyncEventArgs args): socket 연결 이벤트 발생하면, sessionFactory.Invoke하여 Serversession 생성. Serversession Start, OnConnected함수 호출.
+  
+- Listener.cs
+- RecvBuffer.cs
+- SendBuffer.cs
+- Session.cs
+   - Session(abstract)
+      - Start(Socket socket)
+      - Send(ArraySegment<byte> sendBuff)
+      - Disconnect()
+      - RegisterSend()
+      - OnSendCompleted(object sender, SocketAsyncEventArgs args) 
+      - RegisterRecv() 
+      - OnRecvCompleted(object sender, SocketAsyncEventArgs args) 
+   
+   - PacketSession: Session(abstract)
+      - int OnRecv(ArraySegment<byte> buffer) 
+      - void OnRecvPacket(ArraySegment<byte> buffer);
 
-### Listener
-- Accept를 넌블로킹함수를 사용하여 개선하였다.
-- 의문점 
-아래코드를 실행하면 args가 클라이언트에서 보낸 소켓에 대한 정보를 담게 되는건가?
-bool pending = _listenSocket.AcceptAsync(args);
-
-### Session
-- ReceiveAsync
-- SendAsync
+  
+  ## 흐름 순서
+  Program(DummyClient) -> Connector -> Serversession.Start -> Serversession.OnConnected
