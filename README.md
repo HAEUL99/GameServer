@@ -97,6 +97,4 @@
       - void OnRecvPacket(ArraySegment<byte> buffer)(abstract) 
 
   
-  ## 흐름 순서
-  Program(DummyClient) -> Connector -> Serversession.Start -> Serversession.OnConnected
   
