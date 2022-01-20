@@ -5,11 +5,15 @@
 - Program.cs
   - void Main(string[] args): EndPoint 설정후 Connector의 Connect 호출
 - ServerSession.cs
+  - Packet(abstract)
+    - 매개변수
+    
 
 ## Server
 - Program.cs
   - void Main(string[] args): EndPoint 설정후 Listener의 Init 호출
 - ClientSession.cs
+
 
 ## ServerCore(라이브러리로 사용)
 - Conncetor.cs
@@ -65,3 +69,4 @@
   
   ## 흐름 순서
   Program(DummyClient) -> Connector -> Serversession.Start -> Serversession.OnConnected
+  
