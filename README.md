@@ -6,14 +6,44 @@
   - void Main(string[] args): EndPoint 설정후 Connector의 Connect 호출
 - ServerSession.cs
   - Packet(abstract)
-    - 매개변수
-    
+    - 변수: uhort size, ushort packetId
+    - Write()(abstract)
+    - Read(ArraySegment<byte> s)(abstract)
+  
+  - PlayerInfoReq : Packet 
+    - 변수: long playerId
+    - PlayerInfoReq(생성자): packetId 정의
+    - Read(ArraySegment<byte> s)(override): 원하는 정보가 있는 구역까지 count를 이용하여 offSet을 지정해서 값을 빼냄. (BitConverter.ToInt64(new ReadOnlySpan<byte>(s.Array, s.Offset + count, s.Count - count)))
+    - Write()(override): SendBuffeHelper.Open함수를 이용하여 사용할 ArraySegent를 예약함. BitConverter.TryWriteBytes를 이용하여 보낼 정보를 해당 ArraySegment에 저장함. 그리고 SendBuffeHelper.Close함수를 이용하여 사용한 데이터사이즈만큼 ArraySegment를 재정의함.
+  
+  -ServerSession : Session
+    - OnConnected(EndPoint endPoint)(override): PlayerInfoReq 인스턴스 생성후, Wirte()함수 호출하여 ArraySegment 반환받음. 해당 ArraySegment를 매개변수로하여 Send함수 호출함.
+    - OnDisconnected(EndPoint endPoint)(override)
+    - OnRecv(ArraySegment<byte> buffer)(override)
+    - OnSend(int numOfBytes)(override)
+  
 
 ## Server
 - Program.cs
   - void Main(string[] args): EndPoint 설정후 Listener의 Init 호출
-- ClientSession.cs
 
+  - ClientSession.cs
+  - Packet(abstract)
+    - 변수: uhort size, ushort packetId
+    - Write()(abstract)
+    - Read(ArraySegment<byte> s)(abstract)
+  
+  - PlayerInfoReq : Packet 
+    - 변수: long playerId
+    - PlayerInfoReq(생성자): packetId 정의
+    - Read(ArraySegment<byte> s)(override): 원하는 정보가 있는 구역까지 count를 이용하여 offSet을 지정해서 값을 빼냄. (BitConverter.ToInt64(new ReadOnlySpan<byte>(s.Array, s.Offset + count, s.Count - count)))
+    - Write()(override): SendBuffeHelper.Open함수를 이용하여 사용할 ArraySegent를 예약함. BitConverter.TryWriteBytes를 이용하여 보낼 정보를 해당 ArraySegment에 저장함. 그리고 SendBuffeHelper.Close함수를 이용하여 사용한 데이터사이즈만큼 ArraySegment를 재정의함.
+
+  - ClientSession : PacketSession
+    - OnConnected(EndPoint endPoint)(override)
+    - OnRecvPacket(ArraySegment<byte> buffer): BitConverter.ToUInt16을 이용하여 buffer의 size와 id를 뽑아내고, PlayerInfoReq의 인스턴스를 만들어 Read함수를 호출함.
+    - OnDisconnected(EndPoint endPoint)(override)
+    - OnSend(int numOfBytes)(override)
 
 ## ServerCore(라이브러리로 사용)
 - Conncetor.cs
