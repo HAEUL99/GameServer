@@ -27,7 +27,7 @@
 - Program.cs
   - void Main(string[] args): EndPoint 설정후 Listener의 Init 호출
 
-  - ClientSession.cs
+- ClientSession.cs
   - Packet(abstract)
     - 변수: uhort size, ushort packetId
     - Write()(abstract)
