@@ -66,7 +66,7 @@
   - OnRead(int numOfBytes): 성공적으로 read하면, readPos 위치를 바꿔줌(numOfBytes > DataSize인 경우 실패)
   - OnWrite(int numOfBytes): 성공적으로 write하면, writePos 위치를 바꿔줌(numOfBytes > FreeSize인 경우 실패)
 
-  - SendBuffer.cs
+- SendBuffer.cs
   - SendBufferHelper
     - ChunckSize (프로퍼티): get, set
     - Open(int reserveSize)(static): ThreadLocal<SendBuffer>가 이전에 생성된 적이 없거나, ThreadLocal<SendBuffer>의 남은 사이즈(FreeSize)가 reserveSize보다 작으면 SendBuffer를 새로 생성함. 그리고 SendBuffer의 Open함수를 호출하여 이값을 반환함.
