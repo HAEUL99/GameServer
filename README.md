@@ -16,7 +16,7 @@
     - Read(ArraySegment<byte> s)(override): 원하는 정보가 있는 구역까지 count를 이용하여 offSet을 지정해서 값을 빼냄. (BitConverter.ToInt64(new ReadOnlySpan<byte>(s.Array, s.Offset + count, s.Count - count)))
     - Write()(override): SendBuffeHelper.Open함수를 이용하여 사용할 ArraySegent를 예약함. BitConverter.TryWriteBytes를 이용하여 보낼 정보를 해당 ArraySegment에 저장함. 그리고 SendBuffeHelper.Close함수를 이용하여 사용한 데이터사이즈만큼 ArraySegment를 재정의함.
   
-  -ServerSession : Session
+  - ServerSession : Session
     - OnConnected(EndPoint endPoint)(override): PlayerInfoReq 인스턴스 생성후, Wirte()함수 호출하여 ArraySegment 반환받음. 해당 ArraySegment를 매개변수로하여 Send함수 호출함.
     - OnDisconnected(EndPoint endPoint)(override)
     - OnRecv(ArraySegment<byte> buffer)(override)
