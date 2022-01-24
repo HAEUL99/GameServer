@@ -199,7 +199,7 @@ count += sizeof({1});";
         public static string readStringFormat =
 @"ushort {0}Len = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
 count += sizeof(ushort);
-this.{0} = Encoding.Unicode.GetString(s.Slice(count, nameLen));
+this.{0} = Encoding.Unicode.GetString(s.Slice(count, {0}Len));
 count += {0}Len;";
 
         //{0} 리스트 이름 [대문자]
