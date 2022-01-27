@@ -98,4 +98,7 @@ https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-mmorpg-%EA%B0%9C%EB%
       - void OnRecvPacket(ArraySegment<byte> buffer)(abstract) 
 
   
-  
+ ## ServerCore(라이브러리로 사용)
+ - PacketGenerator 출력 경로 바꾸기: 프로젝트 속성> 구성(모든 구성) > 출력 경로(bin\)으로 설정
+ - netcoreapp3.1 폴더 생성 안하는 방법: PacektGenerator.csproj에서 <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+ - 배치파일 생성후
