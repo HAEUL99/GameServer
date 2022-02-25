@@ -99,6 +99,10 @@ https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-mmorpg-%EA%B0%9C%EB%
 
   
  ## ServerCore(라이브러리로 사용)
+  
  - PacketGenerator 출력 경로 바꾸기: 프로젝트 속성> 구성(모든 구성) > 출력 경로(bin\)으로 설정
  - netcoreapp3.1 폴더 생성 안하는 방법: PacektGenerator.csproj에서 <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
- - 배치파일 생성후
+ - 배치파일 생성
+    - PacketGenerator.exe파일을 눌러주는 역할, PDL.xml 인자로 넣어줌(배치파일 위치 기준으로 경로 설정) : START ../../PacketGenerator/bin/PacketGenerator.exe  ../../PacketGenerator/PDL.xml
+    
+    - 위코드로 PacketGenerator.exe경로에 만들어진 GenPackets.cs를 DummyClient(Server)/Packet로 복사함: XCOPY /Y GenPackets.cs "../../DummyClient/Packet", XCOPY /Y GenPackets.cs "../../Server/Packet"
