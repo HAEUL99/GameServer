@@ -2,12 +2,12 @@
 [C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part4: 게임 서버
 https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-mmorpg-%EA%B0%9C%EB%B0%9C-part4
 
-##PacketGenerator
+## PacketGenerator
 - PacketFormat.cs:  packet의 변수, read, write 자동화 포맷
 - PDL.xml: packet 정의
 - Program.cs: PacketFormat을 이용하여 GenPacket, ClientPacketManager, ServerPacketManager 생성
 
-##Common
+## Common
 - GenPackets.bat: Program에서 생성한 스크립트를 특정경로로 복제 해줌. 
 
  - PacketGenerator 출력 경로 바꾸기: 프로젝트 속성> 구성(모든 구성) > 출력 경로(bin\)으로 설정
