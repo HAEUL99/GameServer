@@ -28,6 +28,7 @@ https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-mmorpg-%EA%B0%9C%EB%
 ## Server
 - Program.cs:  호스트연결, listener
 - ClientSession: OnRecvPacket 함수 호출해서, PacketManager의 action.invoke
+- Packet:
     - ServerPacketManager: 받은 packet을 id 기준으로 찾아서 PacketHandler의 해당 함수 invoke.
     - PacketHandler: 각 packet에 대해 recv시 작동함수 작성.(여기서는 cw)
 
