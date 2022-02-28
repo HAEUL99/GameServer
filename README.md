@@ -9,7 +9,6 @@ https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-mmorpg-%EA%B0%9C%EB%
 
 ## Common
 - GenPackets.bat: Program에서 생성한 스크립트를 특정경로로 복제 해줌. 
-
  - PacketGenerator 출력 경로 바꾸기: 프로젝트 속성> 구성(모든 구성) > 출력 경로(bin\)으로 설정
  - netcoreapp3.1 폴더 생성 안하는 방법: PacektGenerator.csproj에서 <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
  - 배치파일 생성
@@ -18,8 +17,9 @@ https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-mmorpg-%EA%B0%9C%EB%
     - 위코드로 PacketGenerator.exe경로에 만들어진 GenPackets.cs를 DummyClient(Server)/Packet로 복사함: XCOPY /Y GenPackets.cs "../../DummyClient/Packet", XCOPY /Y GenPackets.cs "../../Server/Packet"
 
 ## DummyClient
-- Program.cs:  호스트연결, connect
-- ServerSession: packet클래스에 대해 connect (Session 상속받음.)
+- Program.cs:  호스트연결, connect후 
+- ServerSession: GameRoom에서 보낸 packet을 recv
+- SessionManager: ServerSession을 만들어주고, 각 서버로 보내는 pacekt의 packet.chat을 정의해주고 send
 - Packet:
     - ClientPacketManager: 받은 packet을 id 기준으로 찾아서 PacketHandler의 해당 함수 invoke.
     - PacketHandler: 각 packet에 대해 recv시 작동함수 작성.(여기서는 cw)
@@ -27,10 +27,13 @@ https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-mmorpg-%EA%B0%9C%EB%
 
 ## Server
 - Program.cs:  호스트연결, listener
-- ClientSession: OnRecvPacket 함수 호출해서, PacketManager의 action.invoke
+- GameRoom.cs: 방에 대한 ClientSession 리스트 만들고, ServerSessio에서 보낸 packet.chat을 ClientSession 리스트의 모든 클래스에 재정의한 chat을 send
+- Session:
+    -  ClientSession: ServerSession에서 보낸 패킷 recv처리
+    -  SessionManager: ClientSession 만듦.
 - Packet:
     - ServerPacketManager: 받은 packet을 id 기준으로 찾아서 PacketHandler의 해당 함수 invoke.
-    - PacketHandler: 각 packet에 대해 recv시 작동함수 작성.(여기서는 cw)
+    - PacketHandler: 각 packet에 대해 recv시 작동함수 작성.(여기서는 broadcast)
 
 ## ServerCore
 - Connector: connect 소켓 등록
