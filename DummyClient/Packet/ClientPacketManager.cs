@@ -5,16 +5,8 @@ using ServerCore;
 class PacketManager
 {
     #region Singleton
-    static PacketManager _instance;
-    public static PacketManager Instance 
-    {
-        get 
-        {
-            if (_instance == null)
-                _instance = new PacketManager();
-            return _instance;
-        }
-    }
+    static PacketManager _instance = new PacketManager();
+    public static PacketManager Instance{ get { return _instance; } }
     #endregion
 
     //action은 PacketSession, ArraySegment<byte>를 인자로 받는다
@@ -22,6 +14,10 @@ class PacketManager
     //action은 PacketSession, IPacket를 인자로 받는다
     Dictionary<ushort, Action<PacketSession, IPacket>> _handler = new Dictionary<ushort, Action<PacketSession, IPacket>>();
 
+    PacketManager() 
+    {
+        Register();
+    }    
 
     public void Register() 
     {

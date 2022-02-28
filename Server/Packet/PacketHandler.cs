@@ -8,7 +8,7 @@ class PacketHandler
 {
     public static void C_ChatHandler(PacketSession session, IPacket packet)
     {
-        C_Chat p = packet as C_Chat;
+        C_Chat chatPacket = packet as C_Chat;
         ClientSession clientSession = session as ClientSession;
 
         if (clientSession.Room == null)
@@ -18,8 +18,5 @@ class PacketHandler
 
     }
 
-    public static void TestHandler(PacketSession session, IPacket packet)
-    {
-        
-    }
+
 }

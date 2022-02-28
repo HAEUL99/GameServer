@@ -9,12 +9,13 @@ using ServerCore;
 namespace DummyClient
 {
 
-	class ServerSession : Session
+	class ServerSession : PacketSession
     {
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected: {endPoint}");
 
+            /*
             C_PlayerInfoReq packet = new C_PlayerInfoReq() { playerId = 1001, name = "ABCD"};
 			var skill = new C_PlayerInfoReq.Skill() { id = 101, level = 1, duration = 3.0f };
 			skill.attributes.Add(new C_PlayerInfoReq.Skill.Attribute() { att = 77 });
@@ -26,6 +27,7 @@ namespace DummyClient
             ArraySegment<byte> s = packet.Write();
             if (s != null)
                 Send(s);
+            */
         }
 
         public override void OnDisconnected(EndPoint endPoint)
@@ -33,14 +35,14 @@ namespace DummyClient
             Console.WriteLine($"OnDisconnected: {endPoint}");
         }
 
-        public override int OnRecv(ArraySegment<byte> buffer)
+        public override void OnRecvPacket(ArraySegment<byte> buffer)
         {
-            return 0;
+            PacketManager.Instance.OnRecvPacket(this, buffer);
         }
 
         public override void OnSend(int numOfBytes)
         {
-            Console.WriteLine($"Transferred bytes: {numOfBytes}");
+            //Console.WriteLine($"Transferred bytes: {numOfBytes}");
         }
     }
 }
